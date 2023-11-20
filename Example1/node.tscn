@@ -482,3 +482,9 @@ offset_top = 27.0
 offset_right = 440.0
 offset_bottom = 63.0
 text = "Eeeeee"
+
+[node name="LabelFps" type="Label" parent="."]
+offset_left = 103.0
+offset_top = 22.0
+offset_right = 143.0
+offset_bottom = 45.0

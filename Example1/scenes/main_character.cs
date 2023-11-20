@@ -7,7 +7,9 @@ public partial class main_character : CharacterBody2D
 	public const float JumpVelocity = -900.0f;
 	AnimatedSprite2D sprite;
 	Label labelSaltos;
-	bool salto;
+	Label labelFPS;
+	int contadorSaltos=0;
+	
 
 
 
@@ -18,14 +20,15 @@ public partial class main_character : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		
+
 		Vector2 velocity = Velocity;
 		sprite = (AnimatedSprite2D)GetNode("Sprite2D");
-		labelSaltos = (Label)GetNode("Label");
-		UpdateJumpLabel();
-		
-		
-
-
+		labelSaltos = (Label)GetNode("../Label");
+		labelSaltos.Text = "Saltos: " + contadorSaltos;
+		labelFPS = (Label)GetNode("../LabelFps");
+		labelFPS.Text = "FPS: " + Engine.GetFramesPerSecond();
+	
 
 		if (Input.IsActionPressed("right"))
 		{
@@ -52,23 +55,13 @@ public partial class main_character : CharacterBody2D
 			velocity.Y += gravity * (float)delta;
 			sprite.Animation = "Jump";
 		
-
-
-
 		}
-
-		
-
-
-
-
-
-
 
 		// Handle Jump.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
 			velocity.Y = JumpVelocity;
+			contadorSaltos++;
 			
 			
 
@@ -103,9 +96,6 @@ public partial class main_character : CharacterBody2D
 
 
 	}
-	private void UpdateJumpLabel()
-	{
-		labelSaltos.Text = "Salto";
-	}
+	
 
 }
