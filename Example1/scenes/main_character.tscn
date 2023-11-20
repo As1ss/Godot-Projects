@@ -144,7 +144,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"Jump",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -199,11 +199,14 @@ script = ExtResource("1_15226")
 position = Vector2(9.53674e-07, 2)
 scale = Vector2(1.90625, 1.75)
 sprite_frames = SubResource("SpriteFrames_n2dcl")
-animation = &"Idle"
+animation = &"Jump"
 autoplay = "Idle"
-frame_progress = 0.519893
 script = ExtResource("5_qtb24")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_w7drw")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0

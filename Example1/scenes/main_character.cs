@@ -3,9 +3,15 @@ using System;
 
 public partial class main_character : CharacterBody2D
 {
-	public const float Speed = 300.0f;
-	public const float JumpVelocity = -600.0f;
+	public const float Speed = 400.0f;
+	public const float JumpVelocity = -900.0f;
 	AnimatedSprite2D sprite;
+	Label labelSaltos;
+	bool salto;
+
+
+
+
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -13,46 +19,93 @@ public partial class main_character : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
-		sprite = (AnimatedSprite2D)GetNode ("Sprite2D"); 
+		sprite = (AnimatedSprite2D)GetNode("Sprite2D");
+		labelSaltos = (Label)GetNode("Label");
+		UpdateJumpLabel();
 		
 		
 
-		// Add the gravity.
-		if (!IsOnFloor())
-			velocity.Y += gravity * (float)delta;
 
-		// Handle Jump.
-		if (Input.IsActionJustPressed("ui_accept") && IsOnFloor())
-			velocity.Y = JumpVelocity;
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
-		Vector2 direction = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
-		if (direction != Vector2.Zero)
+		if (Input.IsActionPressed("right"))
 		{
-			velocity.X = direction.X * Speed;
-			
+			sprite.FlipH = false;
+		}
+		else if (Input.IsActionPressed("left"))
+		{
+			sprite.FlipH = true;
+		}
+		if (velocity.X > 0 || velocity.X < 0)
+		{
+			sprite.Animation = "Running";
 		}
 		else
 		{
-			
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
+			sprite.Animation = "Idle";
 		}
+
+
+
+		// Add the gravity.
+		if (!IsOnFloor())
+		{
+			velocity.Y += gravity * (float)delta;
+			sprite.Animation = "Jump";
 		
+
+
+
+		}
+
+		
+
+
+
+
+
+
+
+		// Handle Jump.
+		if (Input.IsActionJustPressed("jump") && IsOnFloor())
+		{
+			velocity.Y = JumpVelocity;
+			
+			
+
+		}
+
+
+
+
+
+		// Get the input direction and handle the movement/deceleration.
+		// As good practice, you should replace UI actions with custom gameplay actions.
+		Vector2 direction = Input.GetVector("left", "right", "ui_up", "ui_down");
+		if (direction != Vector2.Zero)
+		{
+			velocity.X = direction.X * Speed;
+
+		}
+		else
+		{
+
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, 50);
+		}
+
 
 		Velocity = velocity;
 		MoveAndSlide();
-		
-		if (velocity.X<0){
-			sprite.FlipH = true; 
-		}
-		else{
-			sprite.FlipH = false; 
-		}
-		
-	
-		
-		
-		
+
+
+
+
+
+
+
 	}
+	private void UpdateJumpLabel()
+	{
+		labelSaltos.Text = "Salto";
+	}
+
 }

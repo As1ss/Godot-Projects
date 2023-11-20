@@ -475,3 +475,10 @@ layer_0/tile_data = PackedInt32Array(851968, 458752, 1, 851969, 458752, 1, 85197
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_xenks")]
 position = Vector2(206, 448)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 272.0
+offset_top = 27.0
+offset_right = 440.0
+offset_bottom = 63.0
+text = "Eeeeee"
